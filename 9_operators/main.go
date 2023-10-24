@@ -36,4 +36,18 @@ func main() {
 	x-- // decrement statement
 	fmt.Println(x)
 	// fmt.Println(5 + x--) illegal expression
+
+	// COMPARASION OPERATORS
+	c, d := 5, 10
+
+	fmt.Println(c == d) // false
+	fmt.Println(c != d) // true
+	fmt.Println(c > d)  // false
+	fmt.Println(c < d)  // true
+
+	// LOGICAL OPERATORS
+	fmt.Println(c > 1 && d == 10)   // true short circuit - second expression not evaluated when first one is false
+	fmt.Println(c == 5 || b == 100) // true
+	fmt.Println(!(c > 0))           // false
+
 }
