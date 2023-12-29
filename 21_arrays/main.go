@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	var numbers [4]int
@@ -22,6 +25,17 @@ func main() {
 
 	// elipsis operator
 	a5 := [...]int{1, 2, 3, 5, 6, -20, 123}
-	fmt.Printf("%v", len(a5))
+	fmt.Printf("%v\n", a5)
+	fmt.Printf("%d\n", len(a5))
 
+	newNumbers := [3]int{10, 20, 30}
+	newNumbers[0] = 7
+
+	fmt.Printf("%v\n", newNumbers)
+
+	for i, v := range newNumbers {
+		fmt.Printf("%d => %d\n", i, v)
+	}
+
+	fmt.Println(strings.Repeat("#", 20))
 }
