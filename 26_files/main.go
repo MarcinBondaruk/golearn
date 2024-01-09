@@ -1,52 +1,36 @@
 package main
 
 import (
-	"bufio"
+	"fmt"
 	"log"
 	"os"
 )
 
 func main() {
-	file, err := os.OpenFile(
-		"a.txt",
-		os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
-		0644,
-	)
+	file, err := os.Create("info.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	defer file.Close()
 
-	bufferedWriter := bufio.NewWriter(file)
-
-	bs := []byte{97, 98, 99}
-
-	bytesWritten, err := bufferedWriter.Write(bs)
-
+	err = os.Rename("info.txt", "data.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Printf("bytes written to file: %d\n", bytesWritten)
-
-	bytesAvailable := bufferedWriter.Available()
-
-	log.Printf("bytes available: %d\n", bytesAvailable)
-
-	_, err = bufferedWriter.WriteString("my random string")
-
+	err = os.Remove("data.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	unflushedBufferSize := bufferedWriter.Buffered()
-
-	log.Printf("unflushed bytes: %d\n", unflushedBufferSize)
-	bufferedWriter.Flush()
-
-	file2, err := os.Open("readfile.txt")
+	contentsInBytes, err := os.ReadFile("songs.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer file2.Close()
+
+	fmt.Printf("%q\n", string(contentsInBytes))
+	for _, v := range contentsInBytes {
+		fmt.Printf("%q\n", string(v))
+	}
 }
