@@ -43,4 +43,10 @@ func main() {
 
 	log.Printf("unflushed bytes: %d\n", unflushedBufferSize)
 	bufferedWriter.Flush()
+
+	file2, err := os.Open("readfile.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file2.Close()
 }
