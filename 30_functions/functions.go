@@ -68,6 +68,13 @@ func foobar() {
 	fmt.Println("This is FooBar")
 }
 
+func increment(x int) func() int {
+	return func() int {
+		x++
+		return x
+	}
+}
+
 func main() {
 	fun1()
 	fun2(5, 7)
@@ -103,4 +110,21 @@ func main() {
 	fmt.Println("Just a string after defering foo() and calling bar()")
 	// defer calls are put on a stack so it executs from latest to oldest defered func
 	defer foobar()
+
+	// anonymous functions
+	func(msg string) {
+		fmt.Println(msg)
+	}("Hello from anonymous function")
+
+	msgPrinter := func(msg string) {
+		fmt.Println(msg)
+	}
+
+	msgPrinter("Im an anonymous function assigned to variable")
+
+	incrementer := increment(10)
+	fmt.Printf("%T\n", incrementer)
+	incrementer()
+	fmt.Println(incrementer())
+
 }
