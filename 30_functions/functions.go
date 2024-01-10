@@ -3,7 +3,13 @@ package main
 import (
 	"fmt"
 	"math"
+	"strings"
 )
+
+type Person struct {
+	fullName string
+	age      int
+}
 
 func fun1() {
 	fmt.Println("This is called from func 1")
@@ -43,6 +49,13 @@ func myVariadic1(a ...int) {
 	fmt.Printf("%#v\n", a)
 }
 
+func NewPerson(age int, names ...string) Person {
+	return Person{
+		age:      age,
+		fullName: strings.Join(names, " "),
+	}
+}
+
 func main() {
 	fun1()
 	fun2(5, 7)
@@ -59,4 +72,11 @@ func main() {
 	nums := []int{3, 4, 5, 6, 7}
 	nums = append(nums, 3, 5, 6)
 	myVariadic1(nums...)
+	sarah := NewPerson(33, "Sarah", "Jessica", "Parker")
+	fmt.Printf("%+v,\n", sarah)
+	fmt.Printf("%#v\n", sarah)
+
+	for _, v := range sarah.fullName {
+		fmt.Println(string(v))
+	}
 }
