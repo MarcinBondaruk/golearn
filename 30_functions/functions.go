@@ -56,6 +56,18 @@ func NewPerson(age int, names ...string) Person {
 	}
 }
 
+func foo() {
+	fmt.Println("This is Foo")
+}
+
+func bar() {
+	fmt.Println("This is bar")
+}
+
+func foobar() {
+	fmt.Println("This is FooBar")
+}
+
 func main() {
 	fun1()
 	fun2(5, 7)
@@ -79,4 +91,16 @@ func main() {
 	for _, v := range sarah.fullName {
 		fmt.Println(string(v))
 	}
+
+	foo()
+	bar()
+
+	//because of defer, foo will be called after main function exits, resulting in being called after bar
+	// defer is useful for cleaning after function closing file for example
+	defer foo()
+	bar()
+
+	fmt.Println("Just a string after defering foo() and calling bar()")
+	// defer calls are put on a stack so it executs from latest to oldest defered func
+	defer foobar()
 }
