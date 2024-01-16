@@ -37,6 +37,10 @@ func (c circle) perimiter() float64 {
 	return 2 * math.Pi * c.radius
 }
 
+func (c circle) volume() float64 {
+	return (4 / 3) * math.Pi * math.Pow(c.radius, 3)
+}
+
 func printCircle(c circle) {
 	fmt.Println("shape: ", c)
 	fmt.Println("area: ", c.area())
@@ -61,15 +65,39 @@ func main() {
 		height: 4.12,
 	}
 
-	circle := circle{
+	ball := circle{
 		radius: 5,
 	}
 
 	printRectangle(rect)
-	printCircle(circle)
+	printCircle(ball)
 	// refactored to single function print by introducing interface
 	fmt.Println(strings.Repeat("=", 64))
 	print(rect)
-	print(circle)
+	print(ball)
 
+	var s shape = circle{
+		radius: 6.2,
+	}
+
+	fmt.Printf("%T\n", s)
+
+	basketball, ok := s.(circle)
+	_ = basketball
+
+	if ok {
+		fmt.Println("basketball volume: ", basketball.volume())
+	}
+
+	// type switch
+	s = rectangle{
+		width:  1.2,
+		height: 3.6,
+	}
+	switch value := s.(type) {
+	case circle:
+		fmt.Printf("%#v has cicle type\n", value)
+	case rectangle:
+		fmt.Printf("%#v has rectangle type\n", value)
+	}
 }
