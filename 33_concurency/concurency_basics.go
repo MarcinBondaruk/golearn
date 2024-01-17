@@ -3,15 +3,17 @@ package main
 import (
 	"fmt"
 	"runtime"
-	"time"
+	"sync"
 )
 
-func f1() {
+func f1(wg *sync.WaitGroup) {
 	fmt.Println("f1 started")
 	for i := 0; i < 3; i++ {
 		fmt.Println("f1 i=", i)
 	}
 	fmt.Println("f1 stoped")
+
+	wg.Done()
 }
 
 func f2() {
@@ -23,6 +25,9 @@ func f2() {
 }
 
 func main() {
+	var wg sync.WaitGroup
+
+	wg.Add(1)
 	fmt.Println("Main Execution Started")
 	fmt.Println("num of cpus: ", runtime.NumCPU())
 	fmt.Println("num of goroutine", runtime.NumGoroutine())
@@ -31,11 +36,10 @@ func main() {
 	fmt.Println("ARCH:", runtime.GOARCH)
 
 	fmt.Println("Gomaxprocs:", runtime.GOMAXPROCS(0))
-	go f1()
+	go f1(&wg)
 	fmt.Println("num of goroutine", runtime.NumGoroutine())
 
 	f2()
-
-	time.Sleep(time.Second * 2)
+	wg.Wait()
 	fmt.Println("main execution stopped")
 }
