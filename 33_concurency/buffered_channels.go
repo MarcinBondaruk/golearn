@@ -25,4 +25,11 @@ func main() {
 	}
 
 	fmt.Println(<-c1) // 0 value for closed chanel int
+
+	// c1 <- 10 panic
+
+	// when to use buffered/unbuffered channels
+	// unbuffered - stronger sync guarantee
+	// buffered - if we know how many values we will gonna send,
+	// has inpact on performance
 }
